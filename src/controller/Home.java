@@ -1,16 +1,17 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.activation.DataSource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import db.PostDbUtil;
-import db.UserDBUtil;
+import model.Post;
 
 @WebServlet("/Home")
 public class Home extends HttpServlet {
@@ -40,10 +41,25 @@ public class Home extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-
+         ArrayList<Post> allPost = new ArrayList<Post>();
 		
 		
 		
+		try {
+			
+			allPost  = postDbUtil.getAllPosts();
+			 
+			 RequestDispatcher dipatcher = request.getRequestDispatcher("MyHomePage.jsp");
+			
+			 request.setAttribute("allpost", allPost);
+			 
+			 dipatcher.forward(request, response);
+			 
+			 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 	

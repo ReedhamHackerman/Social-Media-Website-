@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 import javax.sql.DataSource;
 
 import model.Post;
@@ -17,6 +16,7 @@ public class PostDbUtil
 	
 
 	private DataSource datasource;
+	
 	
 	
 	public PostDbUtil(DataSource datasource) 
@@ -41,10 +41,7 @@ public class PostDbUtil
 			conn =  this.datasource.getConnection();
 			
 			String sql = "select * from posts";
-			
-			
-			
-			
+		
 			stmt = conn.createStatement();
 			
 			res = stmt.executeQuery(sql);
@@ -68,6 +65,42 @@ public class PostDbUtil
 		return allPost;
 		
 	}
+	
+public void insertPost(Post post) throws Exception
+{
+       
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+
+		int postid = post.getPostId();
+		String emailid = post.getEmailId();
+		String content = post.getContent();
+		Date date  =   (Date) post.getPostDate();
+		
+		
+		
+		try {
+			
+			conn =  this.datasource.getConnection();
+			
+			String sql = String.format("INSERT INTO posts (postid,emailid,content,date) VALUES('%i','%s','%s','%m%d%y') where email=?",postid,emailid,content,date);
+			
+			pstmt = (PreparedStatement) conn.createStatement();
+			
+			pstmt.executeUpdate(sql);
+			
+		} finally {
+			// TODO: handle finally clause
+			close(conn,stmt,pstmt,res);
+		}
+	}
+	
+	
+	
+	
+	
 	
 
 	private void close(Connection conn, Statement stmt, PreparedStatement pstmt, ResultSet res) {

@@ -1,13 +1,16 @@
 package model;
 
+import java.util.Date;
+//import java.sql.Date;
 
-import java.sql.Date;
+import db.PostDbUtil;
 public class Post {
 	public int postId;
 	public String emailId;
 	public String content;
 	public Date postDate;
-	
+	Date utilDate = new Date();
+	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 	public Post(int postId,String emailId,String content,Date postDate)
 	{
 		this.postId = postId;
@@ -41,11 +44,23 @@ public class Post {
 	}
 
 	public Date getPostDate() {
-		return postDate;
+		
+		return sqlDate;
 	}
 
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
+	}
+	
+	
+	public  void DisplayAllPost(PostDbUtil pdu)
+	{
+		try {
+			pdu.getAllPosts();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 }

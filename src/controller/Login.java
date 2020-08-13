@@ -1,14 +1,14 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import db.UserDBUtil;
@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		HttpSession session = request.getSession();
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
 		
@@ -61,10 +61,14 @@ public class Login extends HttpServlet {
 		
 		if(canLogin) 
 		{
-			response.sendRedirect("profile.jsp");
+			session.setAttribute("user", tempUser);
+			response.sendRedirect("MyHomePage.jsp");
 		}
 		else 
 		{
+			RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("lerror", true);
+			dispatch.forward(request, response);
 			System.out.println("incorrect credentials");
 			
 		}
