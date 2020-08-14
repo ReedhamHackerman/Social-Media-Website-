@@ -66,7 +66,7 @@ public class PostDbUtil
 		
 	}
 	
-public void insertPost(Post post) throws Exception
+public void UploadPost(Post post) throws Exception
 {
        
 		Connection conn = null;
@@ -74,6 +74,7 @@ public void insertPost(Post post) throws Exception
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
 
+	
 		int postid = post.getPostId();
 		String emailid = post.getEmailId();
 		String content = post.getContent();

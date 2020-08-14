@@ -4,6 +4,7 @@ import java.util.Date;
 //import java.sql.Date;
 
 import db.PostDbUtil;
+import db.UserDBUtil;
 public class Post {
 	public int postId;
 	public String emailId;
@@ -62,5 +63,20 @@ public class Post {
 			e.printStackTrace();
 		}
 	}
+	
+
+
+	public boolean UploadPost(PostDbUtil pdbu) 
+	{
+		try {
+			 pdbu.UploadPost(this);
+			 return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 
 }

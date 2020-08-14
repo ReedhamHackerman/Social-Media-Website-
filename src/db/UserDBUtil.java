@@ -53,7 +53,6 @@ public class UserDBUtil {
 		Statement stmt = null;
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
-		
 		User tempUser = null;
 		
 		
