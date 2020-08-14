@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +21,8 @@ import model.Post;
 @WebServlet("/ViewAllPost")
 public class ViewAllPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@Resource(name="jdbc/social")
 	private DataSource datasource;
     private PostDbUtil pdu;
 

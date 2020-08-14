@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import model.Post;
@@ -45,7 +46,7 @@ public class PostDbUtil
 			stmt = conn.createStatement();
 			
 			res = stmt.executeQuery(sql);
-			
+			System.out.println("hello");
 			
 			while(res.next()) {
 				
@@ -53,6 +54,8 @@ public class PostDbUtil
 				String emailId = res.getString("emailid");
 				String content = res.getString("content");
 				Date postDate = res.getDate("date");
+				
+				System.out.println(id);
 
 				allPost.add(new Post(id,emailId,content,postDate));
 			}
@@ -86,7 +89,7 @@ public void UploadPost(Post post) throws Exception
 			
 			conn =  this.datasource.getConnection();
 			
-			String sql = String.format("INSERT INTO posts (postid,emailid,content,date) VALUES('%i','%s','%s','%m%d%y') where email=?",postid,emailid,content,date);
+			String sql = String.format("INSERT INTO posts (postid,emailid,content,date) VALUES('%i','%s','%s','%s') where email=?",postid,emailid,content,date);
 			
 			pstmt = (PreparedStatement) conn.createStatement();
 			

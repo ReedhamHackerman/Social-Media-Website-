@@ -21,6 +21,8 @@ import model.User;
 @WebServlet("/CreatePost")
 public class CreatePost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	
 	private DataSource datasource;
     private PostDbUtil pdu;
 

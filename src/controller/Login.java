@@ -62,7 +62,7 @@ public class Login extends HttpServlet {
 		if(canLogin) 
 		{
 			session.setAttribute("user", tempUser);
-			response.sendRedirect("MyHomePage.jsp");
+			response.sendRedirect("ViewAllPost");
 		}
 		else 
 		{
