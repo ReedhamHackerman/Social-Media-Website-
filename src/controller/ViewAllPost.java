@@ -15,9 +15,7 @@ import javax.sql.DataSource;
 import db.PostDbUtil;
 import model.Post;
 
-/**
- * Servlet implementation class ViewAllPost
- */
+
 @WebServlet("/ViewAllPost")
 public class ViewAllPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;

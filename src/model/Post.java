@@ -4,15 +4,16 @@ import java.util.Date;
 //import java.sql.Date;
 
 import db.PostDbUtil;
-import db.UserDBUtil;
+
 public class Post {
 	public int postId;
 	public String emailId;
 	public String content;
-	public Date postDate;
+	public String postDate;
 	Date utilDate = new Date();
 	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-	public Post(int postId,String emailId,String content,Date postDate)
+	String currentDateAndTime = sqlDate.toString();
+	public Post(int postId,String emailId,String content,String postDate)
 	{
 		this.postId = postId;
 		this.emailId = emailId;
@@ -20,6 +21,15 @@ public class Post {
 		this.postDate = postDate;
 	}
 
+	public Post(String emailId,String content)
+	{
+		this.emailId = emailId;
+		this.content = content;
+		this.postDate = getPostDate();
+	}
+	
+	
+	
 	public int getPostId() {
 		return postId;
 	}
@@ -44,12 +54,12 @@ public class Post {
 		this.content = content;
 	}
 
-	public Date getPostDate() {
+	public String getPostDate() {
 		
-		return sqlDate;
+		return currentDateAndTime;
 	}
 
-	public void setPostDate(Date postDate) {
+	public void setPostDate(String postDate) {
 		this.postDate = postDate;
 	}
 	

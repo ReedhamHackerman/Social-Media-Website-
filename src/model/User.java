@@ -1,5 +1,6 @@
 package model;
 
+import db.PostDbUtil;
 import db.UserDBUtil;
 
 public class User {
@@ -109,6 +110,33 @@ public class User {
 		}
 		return false;
 	}
+	
+
+	public boolean createPost(String content,PostDbUtil pdu) {
+		
+		Post tempPost = new Post(email,content);
+		try {
+			 pdu.UploadPost(tempPost);
+			 return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public  void DisplayAllPostOfUser(PostDbUtil pdu,String email)
+	{
+		try {
+			pdu.getAllPostOfUser(email);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	
 	@Override
 	public String toString() {

@@ -1,8 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
+import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import db.PostDbUtil;
-import db.UserDBUtil;
-import model.Post;
+
 import model.User;
 
 
@@ -22,7 +20,7 @@ import model.User;
 public class CreatePost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	
+	 @Resource(name="jdbc/social")
 	private DataSource datasource;
     private PostDbUtil pdu;
 
@@ -48,7 +46,27 @@ public class CreatePost extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-      
+		String content = request.getParameter("content");
+		HttpSession session = request.getSession();
+		User user  =  (User) session.getAttribute("user");
+		boolean created = user.createPost(content, pdu);
+		if(created) {
+		
+			System.out.print(user.getEmail());
+			response.sendRedirect("MyHomePage.jsp");
+		}else {
+			//redirect to index page in user in registered with an error
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("MyHomePage.jsp");
+			request.setAttribute("rerror", true);
+			dispatch.forward(request, response);
+		}
+		
+		
+		System.out.println(created);	
+		
+		
+
 	}
 
 	/**

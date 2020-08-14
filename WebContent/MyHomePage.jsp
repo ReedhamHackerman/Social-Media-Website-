@@ -43,10 +43,9 @@
 	
 	%>
 	
-	<form action="CreatePost" method="post">
+<form action="CreatePost" method="post">
   <label for="fname">Content</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
- 
+  <input type="text"  name="content" Placeholder="Enter Whatever You want to add"><br>
 	</form>
 	
 	

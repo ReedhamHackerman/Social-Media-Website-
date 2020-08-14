@@ -46,14 +46,60 @@ public class PostDbUtil
 			stmt = conn.createStatement();
 			
 			res = stmt.executeQuery(sql);
-			System.out.println("hello");
+		
 			
 			while(res.next()) {
 				
 				int id = res.getInt("postid");
 				String emailId = res.getString("emailid");
 				String content = res.getString("content");
-				Date postDate = res.getDate("date");
+				String postDate = res.getString("date");
+				
+				System.out.println(id);
+
+				allPost.add(new Post(id,emailId,content,postDate));
+			}
+			
+			
+		} finally {
+			// TODO: handle finally clause
+			close(conn,stmt,pstmt,res);
+		}
+		return allPost;
+		
+	}
+
+	
+	
+	
+
+	public ArrayList<Post> getAllPostOfUser(String email)  throws Exception
+	{
+		
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		ArrayList<Post> allPost =new ArrayList<Post>();
+		
+		String emailid  = email;
+		try {
+			
+			conn =  this.datasource.getConnection();
+			
+			String sql = "select * from posts where emailid = ? ";
+			
+			pstmt = (PreparedStatement) conn.createStatement();
+			
+			res = pstmt.executeQuery(sql);
+		
+			
+			while(res.next()) {
+				
+				int id = res.getInt("postid");
+				String emailId = res.getString("emailid");
+				String content = res.getString("content");
+				String postDate = res.getString("date");
 				
 				System.out.println(id);
 
@@ -69,6 +115,13 @@ public class PostDbUtil
 		
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 public void UploadPost(Post post) throws Exception
 {
        
@@ -78,10 +131,9 @@ public void UploadPost(Post post) throws Exception
 		ResultSet res = null;
 
 	
-		int postid = post.getPostId();
 		String emailid = post.getEmailId();
 		String content = post.getContent();
-		Date date  =   (Date) post.getPostDate();
+		String date = post.getPostDate();
 		
 		
 		
@@ -89,11 +141,11 @@ public void UploadPost(Post post) throws Exception
 			
 			conn =  this.datasource.getConnection();
 			
-			String sql = String.format("INSERT INTO posts (postid,emailid,content,date) VALUES('%i','%s','%s','%s') where email=?",postid,emailid,content,date);
+			String sql = String.format("INSERT INTO posts (emailid,content,date) VALUES('%s','%s','%s')",emailid,content,date);
 			
-			pstmt = (PreparedStatement) conn.createStatement();
+			stmt = conn.createStatement();
 			
-			pstmt.executeUpdate(sql);
+			stmt.executeUpdate(sql);
 			
 		} finally {
 			// TODO: handle finally clause
