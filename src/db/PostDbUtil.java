@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpSession;
+
 import javax.sql.DataSource;
 
 import model.Post;
@@ -82,16 +82,17 @@ public class PostDbUtil
 		ResultSet res = null;
 		ArrayList<Post> allPost =new ArrayList<Post>();
 		
-		String emailid  = email;
+		
 		try {
 			
 			conn =  this.datasource.getConnection();
 			
-			String sql = "select * from posts where emailid = ? ";
+			String sql = "select * from posts where emailid = ?";
 			
-			pstmt = (PreparedStatement) conn.createStatement();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
 			
-			res = pstmt.executeQuery(sql);
+			res = pstmt.executeQuery();
 		
 			
 			while(res.next()) {

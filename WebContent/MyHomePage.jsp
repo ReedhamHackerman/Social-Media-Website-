@@ -33,7 +33,7 @@
 					out.print("<br>");
 					out.println(i.emailId);
 			 		out.println(i.postDate);
-				 		
+				 	out.println("<a>asas</a>");
 		 		out.println("</li>");
 			}
 			out.println("</ol>");
@@ -42,6 +42,11 @@
 		
 	
 	%>
+	
+	
+	
+	
+	
 	
 <form action="CreatePost" method="post">
   <label for="fname">Content</label><br>

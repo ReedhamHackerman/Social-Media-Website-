@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import db.PostDbUtil;
 import model.Post;
+import model.User;
 
 
 @WebServlet("/ShowOnlyUserPost")
@@ -49,9 +50,9 @@ public class ShowOnlyUserPost extends HttpServlet {
 	{
 		ArrayList<Post> posts = new ArrayList<Post>();
 		HttpSession session = request.getSession();
-		String email = (String) session.getAttribute("email");
+		User user = (User) session.getAttribute("user");
 		try {
-			posts = pdu.getAllPostOfUser(email);
+			posts = pdu.getAllPostOfUser(user.getEmail());
 			System.out.print("You are Inside try");
 			
             RequestDispatcher dipatcher = request.getRequestDispatcher("profile.jsp");
@@ -65,7 +66,7 @@ public class ShowOnlyUserPost extends HttpServlet {
 			e.printStackTrace();
 		}
 		System.out.print(posts);
-		System.out.print(email);
+		System.out.print(user);
 	}
 
 	
