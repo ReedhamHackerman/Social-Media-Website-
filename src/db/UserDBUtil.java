@@ -45,7 +45,7 @@ public class UserDBUtil {
 			close(conn,stmt,pstmt,res);
 		}
 	}
-	
+	   
 	
 	public User findUser(String email) throws Exception {
 		
@@ -74,7 +74,7 @@ public class UserDBUtil {
 				String lname = res.getString("lname");
 				String tempEmail = res.getString("email");
 				String pass = res.getString("pass");
-				
+				   
 				tempUser = new User(fname,lname,tempEmail,pass);
 			}
 			

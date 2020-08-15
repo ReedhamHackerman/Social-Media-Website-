@@ -47,9 +47,9 @@ public class PostOperations extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		String i = request.getParameter("del");
-		int postId = Integer.parseInt(i);
 		if(i!=null)
 		{
+			int postId = Integer.parseInt(i);
 			try {
 				pdu.DeleteThePostOfUser(postId);
 				System.out.print(postId);
@@ -59,26 +59,28 @@ public class PostOperations extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		System.out.print(postId);
+		
 		
 	
-//		String j = request.getParameter("like");
-//	    int postIdlike = Integer.parseInt(j);
-//	    System.out.print(postIdlike);
-//		if(j!=null)
-//		{
-//			try {
-//				pdu.LikeAnyPost(user.getEmail(),postIdlike);
-//				System.out.print(postId);
-//				response.sendRedirect("ShowOnlyUserPost");
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		System.out.print(postId);
-//		
+		String j = request.getParameter("like");
+		  System.out.print(j);
+		  System.out.println("hello");
+	  
+		if(j!=null)
+		{
+			int postIdlike = Integer.parseInt(j);
+			try {
+				pdu.LikeAnyPost(user.getEmail(),postIdlike);
+				
+				response.sendRedirect("ShowOnlyUserPost");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
 		
+	
 		
 		
 	}

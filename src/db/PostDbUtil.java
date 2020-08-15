@@ -63,13 +63,13 @@ public class PostDbUtil
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
 		
-		   
+	
 		
 		try {
 			
 			conn =  this.datasource.getConnection();
 			
-            String sql = String.format("INSERT INTO like (postid,useremailid) VALUES('%d','%s')",postid,email);
+            String sql = String.format("INSERT INTO social.like (postid,useremailid) VALUES('%d','%s')",postid,email);
 			
             stmt = conn.createStatement();
 			
@@ -131,37 +131,7 @@ public class PostDbUtil
 		
 	}
 
-	public int displayNumberOfLikeForPost(Post post) throws Exception 
-	{
-					Connection conn = null;
-					Statement stmt = null;
-					PreparedStatement pstmt = null;
-					ResultSet res = null;
-					String sql;
-					int likeCount;
-					
-					try {
-						
-						conn =  this.datasource.getConnection();
-						
-					    sql = "SELECT count(postid) ,postid FROM like where postid = ? group by postid";
-						likeCount = Integer.parseInt(sql);
-						pstmt = conn.prepareStatement(sql);
-						
-						pstmt.setInt(1, post.getPostId());
-						
-						res = pstmt.executeQuery();
-						
-						
-						System.out.print(likeCount);
-						
-					} finally {
-						// TODO: handle finally clause
-						close(conn,stmt,pstmt,res);
-					}
-					return likeCount;
-					
-	}
+	
 	
 	
 
@@ -175,12 +145,16 @@ public class PostDbUtil
 		ArrayList<Post> allPost =new ArrayList<Post>();
 		
 		
-		try {
+		try {  
 			
 			conn =  this.datasource.getConnection();
-			
-			String sql = "select * from posts where emailid = ?";
-			
+			String sql = "select p.*, count(l.postid) as likes" + 
+	                " FROM posts p " + 
+	                 " LEFT JOIN social.like l ON  p.postid = l.postid " +  
+	                 "JOIN user u ON  p.emailid = u.email " +     
+	                  "GROUP BY p.postid HAVING p.emailid = ?";
+								
+			  
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			
@@ -193,10 +167,10 @@ public class PostDbUtil
 				String emailId = res.getString("emailid");
 				String content = res.getString("content");
 				String postDate = res.getString("date");
-				
+				int likes  = res.getInt("likes");
 				System.out.println(id);
 
-				allPost.add(new Post(id,emailId,content,postDate));
+				allPost.add(new Post(id,emailId,content,postDate,likes));
 			}
 			
 			

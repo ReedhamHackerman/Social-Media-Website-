@@ -276,7 +276,7 @@ input {
 	</div>
 </div>
 </div>
-
+   
 <script type="text/javascript">
 	const signUpButton = document.getElementById('signUp');
 	const signInButton = document.getElementById('signIn');

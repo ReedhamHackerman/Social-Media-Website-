@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import db.PostDbUtil;
-import db.UserDBUtil;
 
 public class Post {
 	public int postId;
@@ -17,8 +16,7 @@ public class Post {
 	public int likes;
 	@Resource(name="jdbc/social")
     private DataSource datasource;
-    private PostDbUtil pdb = new PostDbUtil(datasource);
-	Date utilDate = new Date();
+    Date utilDate = new Date();
 	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 	String currentDateAndTime = sqlDate.toString();
 	public Post(int postId,String emailId,String content,String postDate)
@@ -29,7 +27,14 @@ public class Post {
 		this.postDate = postDate;
 	}
 
-	
+	public Post(int postId,String emailId,String content,String postDate,int likes)
+	{
+		this.postId = postId;
+		this.emailId = emailId;
+		this.content = content;
+		this.postDate = postDate;
+		this.likes = likes;
+	}
 	
 	
 	public Post(String emailId,String content)
@@ -41,7 +46,7 @@ public class Post {
 	
 	public int getLike()
 	{
-		return likes;
+		return this.likes;
 	}
 	public void setLike(int likes)
 	{
@@ -49,7 +54,7 @@ public class Post {
 	}
 	
 	public int getPostId() {
-		return postId;
+		return this.postId;
 	}
 
 	public void setPostId(int postId) {
@@ -57,7 +62,7 @@ public class Post {
 	}
 
 	public String getEmailId() {
-		return emailId;
+		return this.emailId;
 	}
 
 	public void setEmailId(String emailId) {
@@ -65,7 +70,7 @@ public class Post {
 	}
 
 	public String getContent() {
-		return content;
+		return this.content;
 	}
 
 	public void setContent(String content) {
@@ -74,7 +79,7 @@ public class Post {
 
 	public String getPostDate() {
 		
-		return currentDateAndTime;
+		return this.currentDateAndTime;
 	}
 
 	public void setPostDate(String postDate) {
@@ -91,18 +96,7 @@ public class Post {
 			e.printStackTrace();
 		}
 	}
-	public int likes()
-	{
-		int x;
-		try {
-			x =  pdb.displayNumberOfLikeForPost(this);
-			 return x;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		return 0;
-	}
+	
 
  
 	public boolean UploadPost(PostDbUtil pdbu) 

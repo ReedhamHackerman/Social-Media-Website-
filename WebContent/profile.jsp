@@ -17,11 +17,11 @@
                 
                 <p>${post.getPostDate()}<br></p>
                <p>${post.getContent()}</p>
-              <form action="PostOperations" method="POST">
+              <form action="PostOperations" method="GET">
                     <tag:if test="${post.getEmailId() == user.getEmail()}">
                         <button type="submit" value="${post.getPostId()}" name="edit">Edit</button>
                     </tag:if>    
-                     <button type="submit" value="${post.getPostId()}" name="like" >Like </button>  
+                     <button type="submit" value="${post.getPostId()}" name="like" >Like ${post.getLike()}</button>  
                     <tag:if test="${post.getEmailId() != user.getEmail()}">
                         <button type="submit" value="${post.getPostId()}" name="save">Save</button>
                     </tag:if>
