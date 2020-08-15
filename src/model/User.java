@@ -125,6 +125,11 @@ public class User {
 		return false;
 	}
 	
+	
+	
+	
+	
+	
 	public  void DisplayAllPostOfUser(PostDbUtil pdu,String email)
 	{
 		try {

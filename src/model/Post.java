@@ -3,13 +3,21 @@ package model;
 import java.util.Date;
 //import java.sql.Date;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 import db.PostDbUtil;
+import db.UserDBUtil;
 
 public class Post {
 	public int postId;
 	public String emailId;
 	public String content;
 	public String postDate;
+	public int likes;
+	@Resource(name="jdbc/social")
+    private DataSource datasource;
+    private PostDbUtil pdb = new PostDbUtil(datasource);
 	Date utilDate = new Date();
 	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 	String currentDateAndTime = sqlDate.toString();
@@ -21,6 +29,9 @@ public class Post {
 		this.postDate = postDate;
 	}
 
+	
+	
+	
 	public Post(String emailId,String content)
 	{
 		this.emailId = emailId;
@@ -28,7 +39,14 @@ public class Post {
 		this.postDate = getPostDate();
 	}
 	
-	
+	public int getLike()
+	{
+		return likes;
+	}
+	public void setLike(int likes)
+	{
+		this.likes = likes;
+	}
 	
 	public int getPostId() {
 		return postId;
@@ -73,9 +91,20 @@ public class Post {
 			e.printStackTrace();
 		}
 	}
-	
+	public int likes()
+	{
+		int x;
+		try {
+			x =  pdb.displayNumberOfLikeForPost(this);
+			 return x;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
-
+ 
 	public boolean UploadPost(PostDbUtil pdbu) 
 	{
 		try {

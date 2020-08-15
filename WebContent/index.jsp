@@ -257,7 +257,7 @@ input {
 	<input type="email" name="email" placeholder="Email">
 	<input type="password" name="pass" placeholder="Password">
 	
-
+   
 	<button>Sign In</button>
 	</form>
 </div>
@@ -292,7 +292,7 @@ input {
 
 
 
-
+    
 
 
 </body>

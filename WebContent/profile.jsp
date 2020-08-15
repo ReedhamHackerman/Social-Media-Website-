@@ -21,7 +21,7 @@
                     <tag:if test="${post.getEmailId() == user.getEmail()}">
                         <button type="submit" value="${post.getPostId()}" name="edit">Edit</button>
                     </tag:if>    
-                       
+                     <button type="submit" value="${post.getPostId()}" name="like" >Like </button>  
                     <tag:if test="${post.getEmailId() != user.getEmail()}">
                         <button type="submit" value="${post.getPostId()}" name="save">Save</button>
                     </tag:if>

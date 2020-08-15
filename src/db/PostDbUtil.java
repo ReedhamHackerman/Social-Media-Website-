@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -24,6 +25,67 @@ public class PostDbUtil
 	{
 		this.datasource = datasource;
 	}
+	
+	
+	public void DeleteThePostOfUser(int postId) throws Exception
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		
+		   
+		
+		try {
+			
+			conn =  this.datasource.getConnection();
+			
+			String sql = "DELETE FROM posts WHERE postid = ?";
+		
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postId);
+			pstmt.executeUpdate();
+			System.out.print(postId);
+			
+		} finally {
+			// TODO: handle finally clause
+			close(conn,stmt,pstmt,res);
+		}
+	
+		
+	}
+	
+	
+	public void LikeAnyPost(String email,int postid) throws Exception
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		
+		   
+		
+		try {
+			
+			conn =  this.datasource.getConnection();
+			
+            String sql = String.format("INSERT INTO like (postid,useremailid) VALUES('%d','%s')",postid,email);
+			
+            stmt = conn.createStatement();
+			
+			stmt.executeUpdate(sql);
+			System.out.print(postid);
+			
+		} finally {
+			// TODO: handle finally clause
+			close(conn,stmt,pstmt,res);
+		}
+	
+		
+	}
+	
+	
+	
 	
 	
 	
@@ -69,7 +131,37 @@ public class PostDbUtil
 		
 	}
 
-	
+	public int displayNumberOfLikeForPost(Post post) throws Exception 
+	{
+					Connection conn = null;
+					Statement stmt = null;
+					PreparedStatement pstmt = null;
+					ResultSet res = null;
+					String sql;
+					int likeCount;
+					
+					try {
+						
+						conn =  this.datasource.getConnection();
+						
+					    sql = "SELECT count(postid) ,postid FROM like where postid = ? group by postid";
+						likeCount = Integer.parseInt(sql);
+						pstmt = conn.prepareStatement(sql);
+						
+						pstmt.setInt(1, post.getPostId());
+						
+						res = pstmt.executeQuery();
+						
+						
+						System.out.print(likeCount);
+						
+					} finally {
+						// TODO: handle finally clause
+						close(conn,stmt,pstmt,res);
+					}
+					return likeCount;
+					
+	}
 	
 	
 
