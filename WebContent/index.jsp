@@ -259,7 +259,7 @@ input {
 	
    
 	<button>Sign In</button>
-	</form> 
+	</form>
 </div>
 <div class="overlay-container">
 	<div class="overlay">

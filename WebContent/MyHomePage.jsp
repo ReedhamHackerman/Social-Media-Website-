@@ -49,14 +49,7 @@
 	<tag:forEach var="friend" items="${allfriend}">
             <div class="friend">
                 
-                
-                 <p>${friend}<br></p>
-                 <p>${friend.getEmail()}<br></p>
-                  <form action="FriendOperation" method="GET">
-                     <button type="submit" value="${friend.getEmail()}" name="addfriend" >Add Friend</button>  
-                </form>
-                 
-                 
+                <p>${friend.getFriendEmail()}<br></p>
             </div>
         </tag:forEach>
 	

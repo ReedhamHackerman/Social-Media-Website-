@@ -5,10 +5,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.sql.ResultSet;
 
-import model.Friend;
 import model.User;
 
 public class UserDBUtil {
@@ -48,63 +46,6 @@ public class UserDBUtil {
 		}
 	}
 	   
-
-
-	public ArrayList<User> DisplayAllFriends(String email)  throws Exception
-	{
-		
-		
-		Connection conn = null;
-		Statement stmt = null;
-		PreparedStatement pstmt = null;
-		ResultSet res = null;
-		ArrayList<User> allFriend =new ArrayList<User>();
-		
-		
-		try {
-			
-			conn =  this.datasource.getConnection();
-			
-			String sql = "SELECT  * FROM social.user su where  su.email !=? having su.email not in (select femail from social.friend)";
-		
-			  
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, email);
-			
-			res = pstmt.executeQuery();
-		
-			
-			while(res.next())
-			{
-		
-				String femail = res.getString("email");
-				 String fname = res.getString("fname");
-				 String lname = res.getString("lname");
-				 
-				 
-				   System.out.print(femail);
-				 
-				 
-				allFriend.add(new User(fname,lname,femail));
-			}
-			
-			   
-		} finally {
-			// TODO: handle finally clause
-			close(conn,stmt,pstmt,res);
-		}
-		return allFriend;
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public User findUser(String email) throws Exception {
 		

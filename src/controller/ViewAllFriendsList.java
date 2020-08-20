@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import db.UserDBUtil;
+
+import db.FriendDbUtil;
 import model.Friend;
 import model.Post;
 import model.User;
@@ -25,14 +26,14 @@ public class ViewAllFriendsList extends HttpServlet {
 
 	@Resource(name="jdbc/social")
 	private DataSource datasource;
-    private UserDBUtil udb;
+    private FriendDbUtil fdu;
   
     public void init() throws ServletException {
  		// TODO Auto-generated method stub
  		super.init();
  		
  		try {
- 			udb = new UserDBUtil(datasource);
+ 			fdu = new FriendDbUtil(datasource);
  		 
  		} catch (Exception e) {
  			// TODO: handle exception
@@ -53,13 +54,13 @@ public class ViewAllFriendsList extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		  ArrayList<User> allFriends = new ArrayList<User>();
+		  ArrayList<Friend> allFriends = new ArrayList<Friend>();
 	 		
 		  HttpSession session = request.getSession();
 		  User user = (User) session.getAttribute("user");
 	 		
 	 		try {
-	 			allFriends = udb.DisplayAllFriends(user.getEmail());
+	 			allFriends = fdu.DisplayAllFriends(user.getEmail());
 	 			 
 	 			 RequestDispatcher dipatcher = request.getRequestDispatcher("ViewAllPost");
 	 			 
@@ -67,7 +68,7 @@ public class ViewAllFriendsList extends HttpServlet {
 	 			 
 	 			 dipatcher.forward(request, response);
 	 			 
-	 			
+	 			 System.out.print(allFriends);
 	 		} catch (Exception e) {
 	 			// TODO Auto-generated catch block
 	 			e.printStackTrace();

@@ -23,8 +23,7 @@ public class PostOperations extends HttpServlet {
 	 @Resource(name="jdbc/social")
 	 private DataSource datasource;
      private PostDbUtil pdu;
-     public PostOperations() 
-    {
+    public PostOperations() {
         super();
         // TODO Auto-generated constructor stub
     }
