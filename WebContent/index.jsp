@@ -101,12 +101,12 @@ input {
 			0 10px 10px rgba(250, 14, 14, 0.88);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
+	width: 768px;  
 	max-width: 100%;
 	min-height: 480px;
 }
 
-.form-container {
+.form-container {  
 	position: absolute;
 	top: 0;
 	height: 100%;

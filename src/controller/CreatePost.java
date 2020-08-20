@@ -53,7 +53,7 @@ public class CreatePost extends HttpServlet {
 		if(created) {
 		
 			System.out.print(user.getEmail());
-			response.sendRedirect("MyHomePage.jsp");
+			response.sendRedirect("ViewAllFriendsList");
 		}else {
 			//redirect to index page in user in registered with an error
 			
