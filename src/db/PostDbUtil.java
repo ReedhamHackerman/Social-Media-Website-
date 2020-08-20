@@ -1,15 +1,11 @@
 package db;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-
 import model.Post;
 
 public class PostDbUtil 
@@ -24,6 +20,67 @@ public class PostDbUtil
 	{
 		this.datasource = datasource;
 	}
+	
+	
+	public void DeleteThePostOfUser(int postId) throws Exception
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		
+		   
+		
+		try {
+			
+			conn =  this.datasource.getConnection();
+			
+			String sql = "DELETE FROM posts WHERE postid = ?";
+		
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postId);
+			pstmt.executeUpdate();
+			System.out.print(postId);
+			
+		} finally {
+			// TODO: handle finally clause
+			close(conn,stmt,pstmt,res);
+		}
+	
+		
+	}
+	
+	
+	public void LikeAnyPost(String email,int postid) throws Exception
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		
+	
+		
+		try {
+			
+			conn =  this.datasource.getConnection();
+			
+            String sql = String.format("INSERT INTO social.like (postid,useremailid) VALUES('%d','%s')",postid,email);
+			
+            stmt = conn.createStatement();
+			
+			stmt.executeUpdate(sql);
+			System.out.print(postid);
+			
+		} finally {
+			// TODO: handle finally clause
+			close(conn,stmt,pstmt,res);
+		}
+	
+		
+	}
+	
+	
+	
 	
 	
 	
@@ -82,16 +139,21 @@ public class PostDbUtil
 		ResultSet res = null;
 		ArrayList<Post> allPost =new ArrayList<Post>();
 		
-		String emailid  = email;
-		try {
+		
+		try {  
 			
 			conn =  this.datasource.getConnection();
+			String sql = "select p.*, count(l.postid) as likes" + 
+	                " FROM posts p " + 
+	                 " LEFT JOIN social.like l ON  p.postid = l.postid " +  
+	                 "JOIN user u ON  p.emailid = u.email " +     
+	                  "GROUP BY p.postid HAVING p.emailid = ?";
+								
+			  
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
 			
-			String sql = "select * from posts where emailid = ? ";
-			
-			pstmt = (PreparedStatement) conn.createStatement();
-			
-			res = pstmt.executeQuery(sql);
+			res = pstmt.executeQuery();
 		
 			
 			while(res.next()) {
@@ -100,10 +162,10 @@ public class PostDbUtil
 				String emailId = res.getString("emailid");
 				String content = res.getString("content");
 				String postDate = res.getString("date");
-				
+				int likes  = res.getInt("likes");
 				System.out.println(id);
 
-				allPost.add(new Post(id,emailId,content,postDate));
+				allPost.add(new Post(id,emailId,content,postDate,likes));
 			}
 			
 			

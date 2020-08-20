@@ -3,6 +3,9 @@ package model;
 import java.util.Date;
 //import java.sql.Date;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 import db.PostDbUtil;
 
 public class Post {
@@ -10,7 +13,10 @@ public class Post {
 	public String emailId;
 	public String content;
 	public String postDate;
-	Date utilDate = new Date();
+	public int likes;
+	@Resource(name="jdbc/social")
+    private DataSource datasource;
+    Date utilDate = new Date();
 	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 	String currentDateAndTime = sqlDate.toString();
 	public Post(int postId,String emailId,String content,String postDate)
@@ -21,6 +27,16 @@ public class Post {
 		this.postDate = postDate;
 	}
 
+	public Post(int postId,String emailId,String content,String postDate,int likes)
+	{
+		this.postId = postId;
+		this.emailId = emailId;
+		this.content = content;
+		this.postDate = postDate;
+		this.likes = likes;
+	}
+	
+	
 	public Post(String emailId,String content)
 	{
 		this.emailId = emailId;
@@ -28,10 +44,17 @@ public class Post {
 		this.postDate = getPostDate();
 	}
 	
-	
+	public int getLike()
+	{
+		return this.likes;
+	}
+	public void setLike(int likes)
+	{
+		this.likes = likes;
+	}
 	
 	public int getPostId() {
-		return postId;
+		return this.postId;
 	}
 
 	public void setPostId(int postId) {
@@ -39,7 +62,7 @@ public class Post {
 	}
 
 	public String getEmailId() {
-		return emailId;
+		return this.emailId;
 	}
 
 	public void setEmailId(String emailId) {
@@ -47,7 +70,7 @@ public class Post {
 	}
 
 	public String getContent() {
-		return content;
+		return this.content;
 	}
 
 	public void setContent(String content) {
@@ -56,7 +79,7 @@ public class Post {
 
 	public String getPostDate() {
 		
-		return currentDateAndTime;
+		return this.currentDateAndTime;
 	}
 
 	public void setPostDate(String postDate) {
@@ -75,7 +98,7 @@ public class Post {
 	}
 	
 
-
+ 
 	public boolean UploadPost(PostDbUtil pdbu) 
 	{
 		try {

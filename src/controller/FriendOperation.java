@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,47 +12,52 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import db.PostDbUtil;
-
+import db.FriendDbUtil;
 import model.User;
 
 
-@WebServlet("/CreatePost")
-public class CreatePost extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	 @Resource(name="jdbc/social")
-	private DataSource datasource;
-    private PostDbUtil pdu;
 
-  
-    public CreatePost()  {
+@WebServlet("/FriendOperation")
+public class FriendOperation extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	 @Resource(name="jdbc/social")
+	 private DataSource datasource;
+	 private FriendDbUtil fdu;
+    public FriendOperation() 
+    {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
+    
 
     public void init() throws ServletException {
-		// TODO Auto-generated method stub
-		super.init();
-		
-		try {
-			
-			pdu = new PostDbUtil(datasource);
-		
-		} catch (Exception e) {
-			// TODO: handle exception
-			throw new ServletException(e);
-		}
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+ 		// TODO Auto-generated method stub
+ 		super.init();
+ 		
+ 		try {
+ 			fdu = new FriendDbUtil(datasource);
+ 		 
+ 		} catch (Exception e) {
+ 			// TODO: handle exception
+ 			throw new ServletException(e);
+ 		}
+ 	}
+    
+    
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		String content = request.getParameter("content");
 		HttpSession session = request.getSession();
-		User user  =  (User) session.getAttribute("user");
-		boolean created = user.createPost(content, pdu);
-		if(created) {
+		User user = (User) session.getAttribute("user");
+		String i = request.getParameter("addfriend");
 		
+		boolean added = user.AddFriend(user.getEmail(), i, fdu);
+		System.out.print(added);
+		if(added) 
+		{
+			
 			System.out.print(user.getEmail());
 			response.sendRedirect("ViewAllFriendsList");
 		}else {
@@ -62,19 +68,14 @@ public class CreatePost extends HttpServlet {
 			dispatch.forward(request, response);
 		}
 		
-		
-		System.out.println(created);	
-		
-		
-
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		
 	}
 
 }

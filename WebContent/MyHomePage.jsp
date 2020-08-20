@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="model.*" %>
+<%@ page import="model.*" %>
+<%@ page import="model.Post" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="tag" %> 
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
@@ -33,7 +36,7 @@
 					out.print("<br>");
 					out.println(i.emailId);
 			 		out.println(i.postDate);
-				 		
+				 	
 		 		out.println("</li>");
 			}
 			out.println("</ol>");
@@ -42,6 +45,24 @@
 		
 	
 	%>
+	
+	<tag:forEach var="friend" items="${allfriend}">
+            <div class="friend">
+                
+                
+                 <p>${friend}<br></p>
+                 <p>${friend.getEmail()}<br></p>
+                  <form action="FriendOperation" method="GET">
+                     <button type="submit" value="${friend.getEmail()}" name="addfriend" >Add Friend</button>  
+                </form>
+                 
+                 
+            </div>
+        </tag:forEach>
+	
+	
+	
+	
 	
 <form action="CreatePost" method="post">
   <label for="fname">Content</label><br>

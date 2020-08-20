@@ -101,12 +101,12 @@ input {
 			0 10px 10px rgba(250, 14, 14, 0.88);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
+	width: 768px;  
 	max-width: 100%;
 	min-height: 480px;
 }
 
-.form-container {
+.form-container {  
 	position: absolute;
 	top: 0;
 	height: 100%;
@@ -257,9 +257,9 @@ input {
 	<input type="email" name="email" placeholder="Email">
 	<input type="password" name="pass" placeholder="Password">
 	
-
+   
 	<button>Sign In</button>
-	</form>
+	</form> 
 </div>
 <div class="overlay-container">
 	<div class="overlay">
@@ -276,7 +276,7 @@ input {
 	</div>
 </div>
 </div>
-
+   
 <script type="text/javascript">
 	const signUpButton = document.getElementById('signUp');
 	const signInButton = document.getElementById('signIn');
@@ -292,7 +292,7 @@ input {
 
 
 
-
+    
 
 
 </body>

@@ -1,8 +1,8 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.annotation.Resource;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,20 +12,19 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import db.PostDbUtil;
-
 import model.User;
 
 
-@WebServlet("/CreatePost")
-public class CreatePost extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	 @Resource(name="jdbc/social")
-	private DataSource datasource;
-    private PostDbUtil pdu;
 
-  
-    public CreatePost()  {
+@WebServlet("/PostOperations")
+public class PostOperations extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	 @Resource(name="jdbc/social")
+	 private DataSource datasource;
+     private PostDbUtil pdu;
+     public PostOperations() 
+    {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,36 +41,52 @@ public class CreatePost extends HttpServlet {
 			// TODO: handle exception
 			throw new ServletException(e);
 		}
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		String content = request.getParameter("content");
+//		
 		HttpSession session = request.getSession();
-		User user  =  (User) session.getAttribute("user");
-		boolean created = user.createPost(content, pdu);
-		if(created) {
-		
-			System.out.print(user.getEmail());
-			response.sendRedirect("ViewAllFriendsList");
-		}else {
-			//redirect to index page in user in registered with an error
-			
-			RequestDispatcher dispatch = request.getRequestDispatcher("MyHomePage.jsp");
-			request.setAttribute("rerror", true);
-			dispatch.forward(request, response);
+		User user = (User) session.getAttribute("user");
+		String i = request.getParameter("del");
+		if(i!=null)
+		{
+			int postId = Integer.parseInt(i);
+			try {
+				pdu.DeleteThePostOfUser(postId);
+				System.out.print(postId);
+				response.sendRedirect("ShowOnlyUserPost");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
-		System.out.println(created);	
+	
+		String j = request.getParameter("like");
+		  System.out.print(j);
+		  System.out.println("hello");
+	  
+		if(j!=null)
+		{
+			int postIdlike = Integer.parseInt(j);
+			try {
+				pdu.LikeAnyPost(user.getEmail(),postIdlike);
+				
+				response.sendRedirect("ShowOnlyUserPost");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+		
+	
 		
 		
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

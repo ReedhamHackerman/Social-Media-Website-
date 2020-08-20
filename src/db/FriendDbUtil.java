@@ -73,42 +73,6 @@ public class FriendDbUtil
 	
 	
 	
-public void UploadPost(Post post) throws Exception
-{
-       
-		Connection conn = null;
-		Statement stmt = null;
-		PreparedStatement pstmt = null;
-		ResultSet res = null;
-
-	
-		String emailid = post.getEmailId();
-		String content = post.getContent();
-		String date = post.getPostDate();
-		
-		
-		
-		try {
-			
-			conn =  this.datasource.getConnection();
-			
-			String sql = String.format("INSERT INTO posts (emailid,content,date) VALUES('%s','%s','%s')",emailid,content,date);
-			
-			stmt = conn.createStatement();
-			
-			stmt.executeUpdate(sql);
-			
-		} finally {
-			// TODO: handle finally clause
-			close(conn,stmt,pstmt,res);
-		}
-	}
-	
-	
-	
-	
-	
-	
 
 	private void close(Connection conn, Statement stmt, PreparedStatement pstmt, ResultSet res) {
 		
