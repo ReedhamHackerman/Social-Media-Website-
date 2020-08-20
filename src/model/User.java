@@ -1,5 +1,6 @@
 package model;
 
+import db.FriendDbUtil;
 import db.PostDbUtil;
 import db.UserDBUtil;
 
@@ -9,6 +10,9 @@ public class User {
 	String email;
 	String pass;
 	
+	
+	
+	
 	public User(String fname, String lname, String email, String pass){
 		this.fname = fname;
 		this.lname = lname;
@@ -16,6 +20,15 @@ public class User {
 		this.pass = pass;
 		
 	}
+	
+	public User(String fname, String lname, String email)
+	{
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+	}
+	
+	
 	
 	
 	public User(String email, String pass){
@@ -126,7 +139,18 @@ public class User {
 	}
 	
 	
-	
+public boolean AddFriend(String uemail,String femail, FriendDbUtil fdu) {
+		
+		
+		try {
+			 fdu.AddFriend(uemail, femail);
+			 return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	
 	
