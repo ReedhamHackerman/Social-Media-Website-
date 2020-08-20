@@ -6,7 +6,7 @@
 		maxIdle="5"
 		maxWait="10000"
 		username="root"
-		password="admin@123"
+		password="Reedham@123"
 		driverClassName= "com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/social?useSSL=false"
 	    name="jdbc/social"/>

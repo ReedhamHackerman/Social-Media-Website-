@@ -55,15 +55,15 @@ public void setStatus(int status) {
 }
 
 
-
-public  void DisplayFriendList(FriendDbUtil fdu,String uemail)
-{
-	try {
-		fdu.DisplayAllFriends(uemail);
-	} catch (Exception e) {
-		
-		e.printStackTrace();
-	}
-}
+//
+//public  void DisplayFriendList(FriendDbUtil fdu,String uemail)
+//{
+//	try {
+//		fdu.DisplayAllFriends(uemail);
+//	} catch (Exception e) {
+//		
+//		e.printStackTrace();
+//	}
+//}
 
 }

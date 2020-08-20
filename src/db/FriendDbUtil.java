@@ -17,7 +17,7 @@ public class FriendDbUtil
 {
 	
 
-	private DataSource datasource;
+	private DataSource datasource;  
 	
 	
 	
@@ -40,7 +40,7 @@ public class FriendDbUtil
 		try {
 			
 			conn =  this.datasource.getConnection();
-			
+			   
 			String sql = "select * from friends where emailid = ? ";
 			
 			pstmt = (PreparedStatement) conn.createStatement();
