@@ -101,7 +101,54 @@ public class UserDBUtil {
 	
 	
 	
-	
+
+	public ArrayList<User> DisplayAllPendingRequest(String email)  throws Exception
+	{
+		
+		
+		Connection conn = null;
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		ArrayList<User> allFriend =new ArrayList<User>();
+		
+		
+		try {
+			
+			conn =  this.datasource.getConnection();
+			
+			String sql = "SELECT * FROM social.friend sf, social.user su where uemail =? and su.email = sf.femail and status  = 0";
+		
+			  
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, email);
+			
+			res = pstmt.executeQuery();
+		
+			
+			while(res.next())
+			{
+		
+				String femail = res.getString("femail");
+				 String fname = res.getString("fname");
+				 String lname = res.getString("lname");
+				 
+				 
+				   System.out.print(femail);
+				 
+				 
+				allFriend.add(new User(fname,lname,femail));
+			}
+			
+			   
+		} finally {
+			// TODO: handle finally clause
+			close(conn,stmt,pstmt,res);
+		}
+		return allFriend;
+		
+	}
 	
 	
 	

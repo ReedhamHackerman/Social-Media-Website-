@@ -55,7 +55,7 @@ public class ShowOnlyUserPost extends HttpServlet {
 			posts = pdu.getAllPostOfUser(user.getEmail());
 			System.out.print("You are Inside try");
 			
-            RequestDispatcher dipatcher = request.getRequestDispatcher("profile.jsp");
+            RequestDispatcher dipatcher = request.getRequestDispatcher("ViewAllPendingRequest");
  			 
  			 request.setAttribute("alluserpost", posts);
  			 

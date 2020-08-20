@@ -60,9 +60,7 @@
             </div>
         </tag:forEach>
 	
-	
-	
-	
+	<a href= 'ShowOnlyUserPost'>Click me To Go Profile</a>
 	
 <form action="CreatePost" method="post">
   <label for="fname">Content</label><br>

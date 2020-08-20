@@ -32,7 +32,24 @@
                 </form>
             </div>
         </tag:forEach>
-
+        
+        
+        
+        
+        <tag:forEach var="pendingR" items="${allpendingrequest}">
+            <div class="pendingR">
+                
+                <p>${pendingR.getFname()}<br></p>
+                <p>${pendingR.getLname()}<br></p>
+                <p>${pendingR.getEmail()}<br></p>
+              
+            </div>
+        </tag:forEach>
+        
+        
+        
+        
+<a href='ViewAllFriendsList'>Click Me to Home Page</a>
 	
 </body>
 </html>
