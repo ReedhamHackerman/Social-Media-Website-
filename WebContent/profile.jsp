@@ -42,7 +42,8 @@
                 <p>${pendingR.getFname()}<br></p>
                 <p>${pendingR.getLname()}<br></p>
                 <p>${pendingR.getEmail()}<br></p>
-              
+              <a href="AcceptOrDeclineRequest">  <button type="submit" value="${pendingR.getEmail()}" name="accept" >Accept</button> </a>
+              <a href="AcceptOrDeclineRequest"> <button type="submit" value="${pendingR.getEmail()}" name="decline" >Decline</button> </a>
             </div>
         </tag:forEach>
         

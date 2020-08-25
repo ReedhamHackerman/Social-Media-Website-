@@ -150,6 +150,38 @@ public class UserDBUtil {
 		
 	}
 	
+		public void AcceptRequest(String fEmail,String uEmail) throws Exception {
+				
+				Connection conn = null;
+				Statement stmt = null;
+				PreparedStatement pstmt = null;
+				ResultSet res = null;
+				
+				
+				
+				try {
+					
+					conn =  this.datasource.getConnection();
+					
+					String sql = String.format("INSERT INTO `social`.`friend` (`uemail`, `femail`, `status`) VALUES ('%s', '%s', '1')"  
+							,uEmail,fEmail);
+		//			String sql2 = String.format("INSERT INTO friend (uEmail,fEmail,status) VALUES('%s','%s',1)",fEmail,uEmail);
+					stmt = conn.createStatement();
+					System.out.println(sql);
+		//			System.out.println(sql2);
+					stmt.executeUpdate(sql);
+		//			stmt.executeUpdate(sql2);
+					
+				} finally {
+					// TODO: handle finally clause
+					close(conn,stmt,pstmt,res);
+				}
+			}
+	
+	
+	
+	
+	
 	
 	
 	

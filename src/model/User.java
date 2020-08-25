@@ -110,7 +110,17 @@ public class User {
 		return false;
 	}
 	
-	
+	public boolean AcceptFriendRequest(UserDBUtil userdb,String friendEmail,String userEmail)
+	{
+		try {
+			 userdb.AcceptRequest(friendEmail, userEmail);
+			 return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 
 	public boolean createUser(UserDBUtil userdb) {
