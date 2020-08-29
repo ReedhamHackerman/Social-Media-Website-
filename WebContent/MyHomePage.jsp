@@ -11,9 +11,28 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-<h1>Welcome Here Its Your Post Page</h1>
+
+<header>
+
+<h1 class="main-heading" >Home Page</h1>
+
+<div class="search-bar">
+			<input type="text" name="search" placeholder="Send Friend Request" autocomplete="off">			
+		</div>
+
+<a href="index.jsp">Logout</a>
+
+</header>
+
+<nav>
+
+<a class="nav-link" href="Profile">Profile</a>
+</nav>
+
+<br><br>
 
 
 <% 
@@ -62,7 +81,12 @@
 	
 	<a href= 'ShowOnlyUserPost'>Click me To Go Profile</a>
 	
-<form action="CreatePost" method="post">
+<form action="CreatePost" method="post" class="home-form">
+<h2 class="sub-heading">Create Post</h2>
+<br>
+<textarea name="postContent" placeholder="Post Your Thoughts ?"></textarea><br><br>
+<button type="submit" name="createPost">Create</button>	
+
   <label for="fname">Content</label><br>
   <input type="text"  name="content" Placeholder="Enter Whatever You want to add"><br>
 	</form>
